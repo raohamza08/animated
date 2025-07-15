@@ -743,22 +743,22 @@ function checkPassword() {
   if (input === correctPassword) {
     document.getElementById('passwordOverlay').style.display = "none";
 
+    // 👇 Show animation iframe
     const frame = document.getElementById('logoAnimationFrame');
     frame.style.display = 'block';
 
-    // Wait for the signal from iframe
-    window.addEventListener('message', function handleAnimationEnd(event) {
-      if (event.data === 'logoAnimationComplete') {
-        frame.style.display = 'none';
-        document.getElementById('selectionPage').style.display = 'block';
-        window.removeEventListener('message', handleAnimationEnd); // clean up
-      }
-    });
+    // 👇 Start forced removal after 4 seconds
+    setTimeout(() => {
+      if (frame) frame.remove(); // force remove iframe
+      document.getElementById('selectionPage').style.display = 'block'; // show main
+    }, 4000);
+    
   } else {
     document.getElementById('passwordError').style.display = "block";
     animateButtonError();
   }
 }
+
 document.getElementById('reportIntakeBtn').addEventListener('click', function () {
   document.getElementById('selectionPage').style.display = 'none';  // ✅ Hide main screen
   document.getElementById('projectForm').classList.remove('hidden'); // Show project form

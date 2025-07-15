@@ -81,12 +81,12 @@
       const length = path.getTotalLength();
       path.style.strokeDasharray = length;
       path.style.strokeDashoffset = length;
-      path.style.animation = `draw 2s ease forwards ${index * 0.2}s`;
-      delay = index * 300; // 200ms per path
+      path.style.animation = `draw 2s ease forwards ${index * 0.05}s`;
+      delay = index * 50; // 200ms per path
     });
 
     // After all animations + 1s glow, post message to parent
-    const totalDuration = delay + 1000 + 1000;
+    const totalDuration = delay + 2000 + 2000;
 
     setTimeout(() => {
       parent.postMessage('logoAnimationComplete', '*');
