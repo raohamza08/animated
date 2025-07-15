@@ -485,13 +485,34 @@
   </div>
 </div>
 
-<div id="errorModal" class="error-dialog hidden">
+<div id="2" class="error-dialog hidden">
   <div class="modal-content">
     <h3>Form Submission Error</h3>
     <ul id="errorList"></ul>
     <button id="closeErrorModal">Close</button>
   </div>
 </div>
+<script>
+  // Listen for animation completion via message
+  window.addEventListener('message', function handleAnimationEnd(event) {
+    if (event.data === 'logoAnimationComplete') {
+      hideAnimationFrame(); // If animation sends the completion message
+    }
+  });
+
+  // Fallback: Force hide after 3 seconds in case animation doesn't respond
+  setTimeout(() => {
+    hideAnimationFrame();
+  }, 4000);
+
+  function hideAnimationFrame() {
+    const frame = document.getElementById('logoAnimationFrame');
+    if (frame && frame.style.display !== 'none') {
+      frame.style.display = 'none';
+      document.getElementById('selectionPage').style.display = 'block';
+    }
+  }
+</script>
 
 </body>
 </html>
