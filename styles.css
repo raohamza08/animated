@@ -1188,6 +1188,37 @@ textarea {
       display: none;
       text-align: center;
     }
+@media (min-width: 1800px) {
+  .glass-container {
+    max-width: 960px;
+    padding: 60px 80px;
+  }
+
+  .form-grid-two-column {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 17px;
+    padding: 16px 20px;
+  }
+
+  .btn {
+    font-size: 18px;
+    padding: 18px 28px;
+  }
+
+  .logo-header {
+    gap: 25px;
+  }
+
+  .form-title {
+    font-size: 32px;
+  }
+}
 
     /* Tooltip styles */
     #hoverTooltip {

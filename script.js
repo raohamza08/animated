@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbw_-bpgsH3GFID2ZjhUTfhi0pmfjAsP8cFVSi1G6qh-YJN0DcaXQ3vxrrTXgDi7tTE/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbyMqqFp_fMTCYaS7opWtiPFTrov0F4vDGKwRdn5ObooE4ufXO2xFLJiwO2buYhPs2zy/exec";
 
 let projectsMap = {};
 let timeTypesMap = {};
@@ -74,6 +74,7 @@ const maxDate = tomorrow.toISOString().split('T')[0];
 
 $("#trackingDate").attr("min", minDate).attr("max", maxDate);
 $("#overtimeDate").attr("min", minDate).attr("max", maxDate);
+$("#dutyDate").attr("min", minDate).attr("max", maxDate);
 
 
   function populateDropdowns() {
@@ -276,7 +277,7 @@ $("#overtimeDate").attr("min", minDate).attr("max", maxDate);
       current.setMinutes(current.getMinutes() + 10);
     }
    
-    slots.push("11:59:59 PM");
+    slots.push("11:59:59 PM"); // Add 24:00 PM as the last slot
     return slots;
   }
 
@@ -457,6 +458,7 @@ $("#overtimeDate").attr("min", minDate).attr("max", maxDate);
       timeType: getSelectedTimeType(),
       teamMember: $('#teamMember').val(),
       trackingDate: $('#trackingDate').val(),
+      dutyDate: $('#dutyDate').val(),
       startTime: $('#startTime').val(),
       endTime: $('#endTime').val(),
       totalTime: $('#totalTime').val() || $('#totalTimeLabel').text(),
@@ -498,6 +500,10 @@ $("#overtimeDate").attr("min", minDate).attr("max", maxDate);
      if (!formData.trackingDate) {
       errors.push('Please select a Tracking Date');
     }
+
+     if (!formData.dutyDate) {
+      errors.push('Please select your Duty Date');
+    }
     
     if (errors.length > 0) {
   displayErrorModal(errors);
@@ -508,7 +514,9 @@ $("#overtimeDate").attr("min", minDate).attr("max", maxDate);
     console.log('Form validation passed. Submitting:', formData);
 
     // Show loading state
-    $('#submitProjectBtn').html('<i class="fas fa-spinner fa-spin"></i> Submitting...').prop('disabled', true);
+   showRandomSubmitAnimation();
+ // 🔥 Show animated loader
+
 
     // Submit to API
     $.ajax({
@@ -521,11 +529,13 @@ $("#overtimeDate").attr("min", minDate).attr("max", maxDate);
       success: function(response) {
         $('#projectFormArea').hide();
         $('#projectThankYou').removeClass('hidden');
-        $('#submitProjectBtn').html('<i class="fas fa-paper-plane"></i> Submit Time Entry').prop('disabled', false);
+    
+
       },
       error: function() {
         alert('Error submitting form. Please try again.');
-        $('#submitProjectBtn').html('<i class="fas fa-paper-plane"></i> Submit Time Entry').prop('disabled', false);
+      
+
       }
     });
   }
@@ -689,7 +699,7 @@ $("#overtimeDate").attr("min", minDate).attr("max", maxDate);
 
   function resetProjectForm() {
     $('#profileName, #projectName, #teamMember, #startTime, #endTime').val('').trigger('change');
-    $('#trackingDate, #memo, #otherProject').val('');
+    $('#trackingDate, #memo, #otherProject, #dutyDate').val('');
     $('#totalTimeLabel').text('0:00');
     $('#totalTime').val('');
     $('#timeTypeOptions').empty();
@@ -808,4 +818,51 @@ function displayErrorModal(errors) {
   $('#closeErrorModal').off('click').on('click', () => {
     $modal.addClass('hidden');
   });
+}
+//  Clear all cookies (session & persistent) — Same Origin Only
+function clearAllCookies() {
+  document.cookie.split(";").forEach(function(c) {
+    document.cookie = c
+      .replace(/^ +/, "")
+      .replace(/=.*/, "=;expires=" + new Date(0).toUTCString() + ";path=/");
+  });
+}
+
+//  Clear sessionStorage
+function clearSessionData() {
+  sessionStorage.clear();
+}
+
+//  Execute when page is loaded
+window.addEventListener("load", function () {
+  clearAllCookies();
+  clearSessionData();
+});
+
+//  Optional: clear again when tab/window closes
+window.addEventListener("beforeunload", function () {
+  clearAllCookies();
+  clearSessionData();
+});
+function showRandomSubmitAnimation() {
+  const animations = ['anim1', 'anim2', 'anim3', 'anim4', 'anim5', 'anim6'];
+  const randomId = animations[Math.floor(Math.random() * animations.length)];
+  
+  const container = document.getElementById('submitAnimations');
+  container.style.display = 'flex';
+
+  // Hide all first
+  animations.forEach(id => {
+    document.getElementById(id).style.display = 'none';
+  });
+
+  // Show random one
+  const selected = document.getElementById(randomId);
+  selected.style.display = 'block';
+
+  // Hide after 2.5 seconds (or adjust)
+  setTimeout(() => {
+    container.style.display = 'none';
+    selected.style.display = 'none';
+  }, 4500);
 }

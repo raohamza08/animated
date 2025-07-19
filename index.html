@@ -52,6 +52,58 @@
          z-index: 9999; border: none; display: none; 
          background: transparent; backdrop-filter: blur(10px);">
 </iframe>
+<!-- Lottie Player Loader -->
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+<div id="submitAnimations" style="
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(6px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+">
+  <lottie-player id="anim1"
+    src="Cool Man.json"
+    background="transparent" speed="1"
+    style="width: 250px; height: 250px; display: none;" loop autoplay>
+  </lottie-player>
+
+  <lottie-player id="anim2"
+    src="Jackie.json"
+    background="transparent" speed="1"
+    style="width: 250px; height: 250px; display: none;" loop autoplay>
+  </lottie-player>
+
+  <lottie-player id="anim3"
+    src="Super Woman.json"
+    background="transparent" speed="1"
+    style="width: 250px; height: 250px; display: none;" loop autoplay>
+  </lottie-player>
+
+  <lottie-player id="anim4"
+    src="Emoji Enamorado.json"
+    background="transparent" speed="1"
+    style="width: 250px; height: 250px; display: none;" loop autoplay>
+  </lottie-player>
+
+  <lottie-player id="anim5"
+    src="rose.json"
+    background="transparent" speed="1"
+    style="width: 250px; height: 250px; display: none;" loop autoplay>
+  </lottie-player>
+
+  <lottie-player id="anim6"
+    src="play the guitar.json"
+    background="transparent" speed="1"
+    style="width: 250px; height: 250px; display: none;" loop autoplay>
+  </lottie-player>
+</div>
+
+
 
 
 
@@ -105,7 +157,7 @@
       </div>
     </div>
     <p style="text-align: center; margin-bottom: 30px;">
-  <a href="YOUR_DOCUMENT_URL" target="_blank" class="glow-link">
+  <a href="https://docs.google.com/document/d/1m48vymG6VgvJPprvkHYSZgrPmyNT7rv0HdtBLOIjmHA/edit?usp=sharing" target="_blank" class="glow-link">
     Need Help? See Documentation Here!
   </a>
 </p>
@@ -180,7 +232,10 @@
           <input type="date" id="trackingDate" required>
         </div>
       
-      
+    <div class="form-group">
+  <label for="dutyDate"><i class="far fa-calendar-check"></i>Duty Date *</label>
+  <input type="date" id="dutyDate" required>
+</div>  
     <div class="form-group">
   <label style="display: flex; align-items: center;">
     <i class="fas fa-calculator" style="margin-right: 8px;"></i> Total Time:
@@ -306,6 +361,7 @@
         <label for="overtimeDate"><i class="fas fa-calendar-day"></i> Overtime Date *</label>
         <input type="date" id="overtimeDate" required>
       </div>
+
       <div class="form-group">
         <label><i class="fas fa-calculator"></i> Total Hours</label>
         <div class="hours-display">
@@ -492,27 +548,8 @@
     <button id="closeErrorModal">Close</button>
   </div>
 </div>
-<script>
-  // Listen for animation completion via message
-  window.addEventListener('message', function handleAnimationEnd(event) {
-    if (event.data === 'logoAnimationComplete') {
-      hideAnimationFrame(); // If animation sends the completion message
-    }
-  });
 
-  // Fallback: Force hide after 3 seconds in case animation doesn't respond
-  setTimeout(() => {
-    hideAnimationFrame();
-  }, 4000);
 
-  function hideAnimationFrame() {
-    const frame = document.getElementById('logoAnimationFrame');
-    if (frame && frame.style.display !== 'none') {
-      frame.style.display = 'none';
-      document.getElementById('selectionPage').style.display = 'block';
-    }
-  }
-</script>
 
 </body>
 </html>
