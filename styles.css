@@ -1205,6 +1205,12 @@ textarea {
     font-size: 17px;
     padding: 16px 20px;
   }
+.form-group input[type="radio"] {
+  transform: scale(1.2);
+  margin-right: 8px;
+  padding: 0px 0px;
+  accent-color: #00a693; /* sets the selected color */
+}
 
   .btn {
     font-size: 18px;
